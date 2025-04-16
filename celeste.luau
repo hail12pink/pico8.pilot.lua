@@ -184,7 +184,7 @@ player =
             end
            
             --facing
-            if this.spd.x!=0 then
+            if this.spd.x~=0 then
                 this.flip.x=(this.spd.x<0)
             end
 
@@ -197,7 +197,7 @@ player =
             end
        
             -- wall slide
-            if input!=0 and this.is_solid(input,0) and not this.is_ice(input,0) then
+            if input~=0 and this.is_solid(input,0) and not this.is_ice(input,0) then
              maxfall=0.4
              if rnd(10)<2 then
                  init_object(smoke,this.x+input*6,this.y)
@@ -220,7 +220,7 @@ player =
                 else
                     -- wall jump
                     local wall_dir=(this.is_solid(-3,0) and -1 or this.is_solid(3,0) and 1 or 0)
-                    if wall_dir!=0 then
+                    if wall_dir~=0 then
                      psfx(2)
                      this.jbuffer=0
                      this.spd.y=-2
@@ -243,15 +243,15 @@ player =
              has_dashed=true
              this.dash_effect_time=10
              local v_input=(btn(k_up) and -1 or (btn(k_down) and 1 or 0))
-             if input!=0 then
-              if v_input!=0 then
+             if input~=0 then
+              if v_input~=0 then
                this.spd.x=input*d_half
                this.spd.y=v_input*d_half
               else
                this.spd.x=input*d_full
                this.spd.y=0
               end
-             elseif v_input!=0 then
+             elseif v_input~=0 then
                  this.spd.x=0
                  this.spd.y=v_input*d_full
              else
@@ -271,10 +271,10 @@ player =
               this.dash_target.y*=.75
              end
             
-             if this.spd.y!=0 then
+             if this.spd.y~=0 then
               this.dash_accel.x*=0.70710678118
              end
-             if this.spd.x!=0 then
+             if this.spd.x~=0 then
               this.dash_accel.y*=0.70710678118
              end          
             elseif dash and this.djump<=0 then
@@ -534,8 +534,8 @@ fall_floor = {
         end
     end,
     draw=function(this)
-        if this.state!=2 then
-            if this.state!=1 then
+        if this.state~=2 then
+            if this.state~=1 then
                 spr(23,this.x,this.y)
             else
                 spr(23+(15-this.delay)/5,this.x,this.y)
@@ -719,7 +719,7 @@ key={
         local was=flr(this.spr)
         this.spr=9+(sin(frames/30)+0.5)*1
         local is=flr(this.spr)
-        if is==10 and is!=was then
+        if is==10 and is~=was then
             this.flip.x=not this.flip.x
         end
         if this.check(player,0,0) then
@@ -990,7 +990,7 @@ function init_object(type,x,y)
         local other
         for i=1,count(objects) do
             other=objects[i]
-            if other ~=nil and other.type == type and other != obj and other.collideable and
+            if other ~=nil and other.type == type and other ~= obj and other.collideable and
                 other.x+other.hitbox.x+other.hitbox.w > obj.x+obj.hitbox.x+ox and 
                 other.y+other.hitbox.y+other.hitbox.h > obj.y+obj.hitbox.y+oy and
                 other.x+other.hitbox.x < obj.x+obj.hitbox.x+obj.hitbox.w+ox and 
