@@ -1427,3 +1427,4 @@ function spikes_at(x,y,w,h,xspd,yspd)
      end
  end
     return false
+end
