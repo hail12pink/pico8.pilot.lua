@@ -1,6 +1,28 @@
 -- pico 8 values --
 -------------------
 
+local Screen = GetPartFromPort(1, "Screen")
+local graphics = {}
+
+local pico_col_index = {
+    [0] = Color3.fromRGB(0, 0, 0), -- black
+    [1] = Color3.fromRGB(29, 43, 83), -- dark-blue
+    [2] = Color3.fromRGB(126, 37, 83), -- dark-purple
+    [3] = Color3.fromRGB(0, 135, 81), -- dark-green
+    [4] = Color3.fromRGB(171, 82, 54), -- brown
+    [5] = Color3.fromRGB(95, 87, 79), -- dark-grey
+    [6] = Color3.fromRGB(194, 195, 199), -- light-grey
+    [7] = Color3.fromRGB(255, 241, 232), -- white
+    [8] = Color3.fromRGB(255, 0, 77), -- red
+    [9] = Color3.fromRGB(255, 163, 0), -- orange
+    [10] = Color3.fromRGB(255, 236, 39), -- yellow
+    [11] = Color3.fromRGB(0, 228, 54), -- green
+    [12] = Color3.fromRGB(41, 173, 255), -- blue
+    [13] = Color3.fromRGB(131, 118, 156), -- lavender
+    [14] = Color3.fromRGB(255, 119, 168), -- pink
+    [15] = Color3.fromRGB(255, 204, 170), -- light-peach
+}
+
 local function add(t, ...)
     local vt = {...}
     for i = 1, #vt do
@@ -9,6 +31,29 @@ local function add(t, ...)
 end
 local function rnd(x)
     return math.random(0, x*1000) / 1000 -- TODO: this should not be able to return x, the value should always be lower than x
+end
+local function pal() --TODO
+end
+local function rectfill(x0, y0, x1, y1, c)
+    local leastX
+    local leastY
+    if x0 < x1 then
+        leastX = x0
+    else
+        leastX = x1
+    end
+    if y0 < y1 then
+        leastY = y0
+    else
+        leastY = y1
+    end
+
+    Screen:CreateElement("Frame", {
+        Position = UDim2.fromOffset(leastX, leastY),
+        Size = UDim2.fromOffset(math.abs(x0-x1), math.abs(y0-y1)),
+        BackgroundColor3 = pico_col_index[c],
+        BorderSizePixel = 0
+    })
 end
 
 local flr=math.floor
@@ -1274,6 +1319,8 @@ function _draw()
     end
     rectfill(0,0,128,128,bg_col)
 
+task.wait(2)
+
     -- clouds
     if not is_title() then
         foreach(clouds, function(c)
@@ -1445,7 +1492,7 @@ function spikes_at(x,y,w,h,xspd,yspd)
     return false
 end
 
-print("functions loaded)"
+print("functions loaded")
 while true do
     print("draw")
     _draw()
