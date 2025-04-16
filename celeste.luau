@@ -1,6 +1,12 @@
 -- pico 8 values --
 -------------------
 
+local function add(t, ...)
+    local vt = {...}
+    for i = 1, #vt do
+        table.insert(t, vt[i])
+    end
+end
 local function rnd(x)
     return math.random(0, x*1000) / 1000 -- TODO: this should not be able to return x, the value should always be lower than x
 end
