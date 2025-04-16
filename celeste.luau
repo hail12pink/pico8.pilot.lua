@@ -114,7 +114,7 @@ player =
         create_hair(this)
     end,
     update=function(this)
-        if (pause_player) return
+        if (pause_player) then return
        
         local input = btn(k_right) and 1 or (btn(k_left) and -1 or 0)
        
