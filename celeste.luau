@@ -1444,3 +1444,9 @@ function spikes_at(x,y,w,h,xspd,yspd)
  end
     return false
 end
+
+print("functions loaded)"
+while true do
+    print("draw")
+    _draw()
+end
